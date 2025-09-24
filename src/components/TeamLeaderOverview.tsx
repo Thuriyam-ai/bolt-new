@@ -768,7 +768,7 @@ export function TeamLeaderOverview() {
             </div>
             <div>
               <h4 className="font-medium text-gray-900">Vikram Singh - Talk Ratio Coaching</h4>
-              <p className="text-sm text-gray-600 mt-1">Agent has 68% talk ratio (target: <60%). Focus on active listening techniques.</p>
+              <p className="text-sm text-gray-600 mt-1">Agent has 68% talk ratio (target: {'<'}60%). Focus on active listening techniques.</p>
               <button className="text-sm text-yellow-700 font-medium mt-2 hover:text-yellow-800">
                 Schedule Coaching Session →
               </button>
