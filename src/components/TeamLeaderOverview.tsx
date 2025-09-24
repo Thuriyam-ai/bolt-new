@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Users, 
   TrendingUp, 
@@ -6,7 +6,6 @@ import {
   Star, 
   Phone, 
   MessageSquare,
-  Filter,
   Search,
   ChevronDown,
   X,
@@ -17,7 +16,6 @@ import {
   AlertTriangle,
   CheckCircle,
   User,
-  Award,
   TrendingDown
 } from 'lucide-react';
 
@@ -25,7 +23,7 @@ export function TeamLeaderOverview() {
   const [showInsights, setShowInsights] = useState(false);
   const [activeInsightTab, setActiveInsightTab] = useState('flow');
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [selectedAgent, setSelectedAgent] = useState<typeof agents[0] | null>(null);
 
   const agents = [
     { id: 1, name: 'Priya Sharma', score: 94.5, calls: 52, satisfaction: 4.8, talkRatio: 58, interruptions: 1, monologues: 2.3 },
@@ -459,28 +457,15 @@ export function TeamLeaderOverview() {
             <p className="text-gray-600 text-lg">Comprehensive team performance analytics and insights</p>
           </div>
           <div className="flex space-x-3">
-            <button 
-              onClick={() => setShowFilters(true)}
-              className="flex items-center space-x-2 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <Filter size={16} />
-              <span>Advanced Filters</span>
-            </button>
-            <button 
-              onClick={() => setShowInsights(true)}
-              className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <BarChart3 size={16} />
-              <span>Insights</span>
-            </button>
+            {/* Advanced Filters moved below */}
           </div>
         </div>
       </div>
 
       {/* Basic Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-4">
         <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1 relative">
+          <div className="relative w-80">
             <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="text"
@@ -489,25 +474,35 @@ export function TeamLeaderOverview() {
             />
           </div>
           <div className="flex gap-2">
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-              <option>All Teams</option>
-              <option>Customer Support</option>
-              <option>Technical Support</option>
-              <option>Sales Team</option>
+            <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm bg-white text-gray-900" style={{background: 'white', color: '#111827'}}>
+              <option style={{background: 'white', color: '#111827'}}>All Teams</option>
+              <option style={{background: 'white', color: '#111827'}}>Customer Support</option>
+              <option style={{background: 'white', color: '#111827'}}>Technical Support</option>
+              <option style={{background: 'white', color: '#111827'}}>Sales Team</option>
             </select>
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-              <option>Last 7 Days</option>
-              <option>Last 30 Days</option>
-              <option>Last 3 Months</option>
-              <option>Custom Range</option>
+            <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm bg-white text-gray-900" style={{background: 'white', color: '#111827'}}>
+              <option style={{background: 'white', color: '#111827'}}>Last 7 Days</option>
+              <option style={{background: 'white', color: '#111827'}}>Last 30 Days</option>
+              <option style={{background: 'white', color: '#111827'}}>Last 3 Months</option>
+              <option style={{background: 'white', color: '#111827'}}>Custom Range</option>
             </select>
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-              <option>All Campaigns</option>
-              <option>Holiday Sales</option>
-              <option>Product Launch</option>
-              <option>Customer Retention</option>
+            <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm bg-white text-gray-900" style={{background: 'white', color: '#111827'}}>
+              <option style={{background: 'white', color: '#111827'}}>All Campaigns</option>
+              <option style={{background: 'white', color: '#111827'}}>Holiday Sales</option>
+              <option style={{background: 'white', color: '#111827'}}>Product Launch</option>
+              <option style={{background: 'white', color: '#111827'}}>Customer Retention</option>
             </select>
           </div>
+        </div>
+        
+        {/* Advanced Filters Link */}
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <button 
+            onClick={() => setShowFilters(true)}
+            className="text-blue-600 hover:text-blue-800 text-sm font-medium border-b border-dotted border-blue-600 hover:border-blue-800 transition-colors"
+          >
+            Advanced Filters
+          </button>
         </div>
       </div>
 
@@ -803,89 +798,6 @@ export function TeamLeaderOverview() {
         </div>
       </div>
 
-      {/* Agent Performance Leaderboard - REMOVED DUPLICATE */}
-      {/* This section was duplicated, keeping only the one above */}
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <div className="w-12 h-12 rounded-lg bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4">
-            <TrendingUp size={20} className="text-emerald-500" />
-          </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Avg Performance</h3>
-          <p className="text-3xl font-bold text-gray-900">89.8%</p>
-          <p className="text-sm text-gray-500 mt-1">+2.3% from last week</p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <div className="w-12 h-12 rounded-lg bg-purple-500 bg-opacity-10 flex items-center justify-center mb-4">
-            <Clock size={20} className="text-purple-500" />
-          </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Avg Response Time</h3>
-          <p className="text-3xl font-bold text-gray-900">2.1min</p>
-          <p className="text-sm text-gray-500 mt-1">Within target</p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <div className="w-12 h-12 rounded-lg bg-yellow-500 bg-opacity-10 flex items-center justify-center mb-4">
-            <Star size={20} className="text-yellow-500" />
-          </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Customer Satisfaction</h3>
-          <p className="text-3xl font-bold text-gray-900">4.6/5</p>
-          <p className="text-sm text-gray-500 mt-1">Excellent rating</p>
-        </div>
-      </div>
-
-      {/* Agent Leaderboard */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-semibold text-gray-900">Agent Performance Leaderboard</h3>
-          <div className="flex space-x-2">
-            <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm">
-              <option>This Week</option>
-              <option>This Month</option>
-              <option>This Quarter</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          {agents.map((agent, index) => (
-            <div 
-              key={agent.id} 
-              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
-              onClick={() => setSelectedAgent(agent)}
-            >
-              <div className="flex items-center space-x-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
-                  index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : index === 2 ? 'bg-orange-600' : 'bg-blue-500'
-                }`}>
-                  {index + 1}
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">{agent.name}</h4>
-                  <p className="text-sm text-gray-500">{agent.calls} calls this week</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-6">
-                <div className="text-center">
-                  <p className="text-lg font-bold text-gray-900">{agent.score}%</p>
-                  <p className="text-xs text-gray-500">Quality Score</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-lg font-bold text-gray-900">{agent.satisfaction}</p>
-                  <p className="text-xs text-gray-500">Satisfaction</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-lg font-bold text-gray-900">{agent.talkRatio}%</p>
-                  <p className="text-xs text-gray-500">Talk Ratio</p>
-                </div>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Insights Modal */}
       {showInsights && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -932,7 +844,7 @@ export function TeamLeaderOverview() {
 
       {/* Advanced Filters Drawer */}
       {showFilters && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 z-50">
           <div className="absolute right-0 top-0 h-full w-96 bg-white shadow-xl">
             <div className="p-6 border-b">
               <div className="flex items-center justify-between">
