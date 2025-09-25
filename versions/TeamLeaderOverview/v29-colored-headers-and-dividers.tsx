@@ -17,8 +17,7 @@ import {
   Eye,
   Maximize2,
   Minimize2,
-  Settings,
-  TrendingUp
+  Settings
 } from 'lucide-react';
 
 // 1. Define the Agent type
@@ -64,7 +63,7 @@ export function TeamLeaderOverview() {
   return (
     <div className="flex-1 bg-gray-50 min-h-screen">
       {/* Modern Header with Gong.io styling */}
-      <div className="bg-white px-12 py-6">
+      <div className="bg-white px-12 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
           <div>
@@ -76,8 +75,7 @@ export function TeamLeaderOverview() {
       </div>
 
       {/* Quick Filters Bar */}
-      <div className="px-12 py-6 mt-4">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white px-12 py-3">
         <div className="flex items-center space-x-4">
           <div className="flex-1 max-w-md">
             <div className="relative">
@@ -85,24 +83,24 @@ export function TeamLeaderOverview() {
             <input
               type="text"
               placeholder="Search agents, campaigns, or metrics..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-medium shadow-sm"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           </div>
           <div className="flex items-center space-x-3">
-            <select className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm font-medium shadow-sm">
+            <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
               <option>All Teams</option>
               <option>Sales Team</option>
               <option>Support Team</option>
               <option>Marketing Team</option>
             </select>
-            <select className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm font-medium shadow-sm">
+            <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
               <option>Last 7 Days</option>
               <option>Last 30 Days</option>
               <option>Last 3 Months</option>
               <option>Custom Range</option>
             </select>
-            <select className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm font-medium shadow-sm">
+            <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
               <option>All Campaigns</option>
               <option>Q4 Push</option>
               <option>Holiday Special</option>
@@ -116,7 +114,6 @@ export function TeamLeaderOverview() {
               <span>Advanced Filters</span>
           </button>
           </div>
-          </div>
         </div>
       </div>
 
@@ -126,12 +123,9 @@ export function TeamLeaderOverview() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Key Performance Metrics */}
           <div className={`${expandedWidget === 'metrics' ? 'lg:col-span-3' : 'lg:col-span-2'}`}>
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 border-t-4 border-t-blue-500 p-6 ${expandedWidget === 'metrics' ? 'min-h-[600px]' : ''}`}>
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${expandedWidget === 'metrics' ? 'min-h-[600px]' : ''}`}>
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900">Conversational Metrics</h3>
-                  <p className="text-sm text-gray-600 mt-1">Core conversation quality and performance indicators</p>
-                </div>
+                <h3 className="text-xl font-semibold text-gray-900">Key metrics</h3>
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleExpandWidget('metrics')}
@@ -275,61 +269,12 @@ export function TeamLeaderOverview() {
                 {/* Customer Satisfaction */}
                 
               </div>
-              
-              {/* Summary Section */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Performance Summary */}
-                  <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border border-gray-200">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                      <BarChart3 className="w-4 h-4 mr-2 text-gray-600" />
-                      Performance Summary
-                    </h4>
-                    <div className="space-y-2 text-xs">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Team Efficiency</span>
-                        <span className="font-medium text-green-600">↑ 8.2%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Quality Consistency</span>
-                        <span className="font-medium text-green-600">↑ 5.1%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Response Time</span>
-                        <span className="font-medium text-red-600">↑ 12%</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Quick Insights */}
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                      <Activity className="w-4 h-4 mr-2 text-blue-600" />
-                      Quick Insights
-                    </h4>
-                    <div className="space-y-2 text-xs">
-                      <div className="flex items-start">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                        <span className="text-gray-700">Quality scores above team average</span>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                        <span className="text-gray-700">Monitor interruption patterns</span>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                        <span className="text-gray-700">Conversation volume trending up</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
         </div>
       </div>
 
       {/* Trend Analysis */}
           <div className={`${expandedWidget === 'trends' ? 'lg:col-span-3' : 'lg:col-span-1'}`}>
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 border-t-4 border-t-green-500 p-6 h-full ${expandedWidget === 'trends' ? 'min-h-[600px]' : ''}`}>
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full ${expandedWidget === 'trends' ? 'min-h-[600px]' : ''}`}>
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900">Trend Analysis</h3>
@@ -378,12 +323,12 @@ export function TeamLeaderOverview() {
                             <Settings className="w-4 h-4" />
                             <span>Chart Settings</span>
                           </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-                    )}
-            </div>
-        </div>
-      </div>
               
               {/* Combined Trend Analysis Chart */}
               <div className="mb-6">
@@ -469,7 +414,7 @@ export function TeamLeaderOverview() {
                       <text x="320" y="195" textAnchor="middle" className="text-xs fill-gray-500">Fri</text>
                       <text x="380" y="195" textAnchor="middle" className="text-xs fill-gray-500">Sat</text>
                     </svg>
-            </div>
+                  </div>
                   
                   {/* Legend */}
                   <div className="flex items-center justify-center space-x-8">
@@ -511,7 +456,7 @@ export function TeamLeaderOverview() {
 
         {/* Call Quality Analytics */}
         <div className={`${expandedWidget === 'analytics' ? 'lg:col-span-3' : ''} ${expandedWidget === 'metrics' ? 'hidden' : ''} ${expandedWidget === 'trends' ? 'hidden' : ''}`}>
-          <div className={`bg-white rounded-xl shadow-sm border border-gray-100 border-t-4 border-t-purple-500 p-6 ${expandedWidget === 'analytics' ? 'min-h-[600px]' : ''}`}>
+          <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${expandedWidget === 'analytics' ? 'min-h-[600px]' : ''}`}>
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
             <div>
               <h3 className="text-xl font-semibold text-gray-900">Conversational Analysis</h3>
@@ -628,161 +573,98 @@ export function TeamLeaderOverview() {
                 <div className="space-y-6">
                   {/* Talk Ratio Distribution (Box Plot) */}
                   <div className="pb-6 border-b border-gray-200">
-                    <div className="text-center mb-4">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <BarChart3 className="w-4 h-4 text-blue-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Talk Ratio Distribution</h5>
-                      </div>
-                      <div className="border-b border-blue-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-blue-100">
-                      <div className="h-32 bg-white rounded-lg p-4 shadow-sm">
-                        <svg width="100%" height="100%" viewBox="0 0 240 80">
-                          <g transform="translate(30, 15)">
+                    <h5 className="text-sm font-medium text-gray-700 mb-2">Talk Ratio Distribution (Box Plot)</h5>
+                    <div className="h-24 bg-white rounded-lg p-3">
+                      <svg width="100%" height="100%" viewBox="0 0 200 60">
+                        <g transform="translate(20, 10)">
                           {/* Y-axis */}
-                            <line x1="0" y1="0" x2="0" y2="50" stroke="#374151" strokeWidth="1.5"/>
-                            <text x="-8" y="5" fontSize="9" fill="#6B7280" textAnchor="end" fontWeight="500">100%</text>
-                            <text x="-8" y="25" fontSize="9" fill="#6B7280" textAnchor="end" fontWeight="500">50%</text>
-                            <text x="-8" y="45" fontSize="9" fill="#6B7280" textAnchor="end" fontWeight="500">0%</text>
-                            
+                          <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="1"/>
                           {/* X-axis */}
-                            <line x1="0" y1="50" x2="180" y2="50" stroke="#374151" strokeWidth="1.5"/>
-                            <text x="30" y="65" fontSize="9" fill="#6B7280" textAnchor="middle" fontWeight="500">40%</text>
-                            <text x="70" y="65" fontSize="9" fill="#6B7280" textAnchor="middle" fontWeight="500">60%</text>
-                            <text x="110" y="65" fontSize="9" fill="#6B7280" textAnchor="middle" fontWeight="500">80%</text>
+                          <line x1="0" y1="40" x2="160" y2="40" stroke="#374151" strokeWidth="1"/>
+                          
+                          {/* Box plot elements */}
+                          <g transform="translate(60, 10)">
+                            {/* Whiskers */}
+                            <line x1="0" y1="20" x2="80" y2="20" stroke="#6b7280" strokeWidth="1"/>
+                            <line x1="0" y1="15" x2="0" y2="25" stroke="#6b7280" strokeWidth="1"/>
+                            <line x1="80" y1="15" x2="80" y2="25" stroke="#6b7280" strokeWidth="1"/>
                             
-                            {/* Box plot */}
-                            <rect x="60" y="25" width="50" height="25" fill="#3B82F6" fillOpacity="0.3" stroke="#3B82F6" strokeWidth="1.5" rx="2"/>
-                            <line x1="85" y1="25" x2="85" y2="50" stroke="#1E40AF" strokeWidth="2.5"/>
-                            <line x1="40" y1="37" x2="60" y2="37" stroke="#3B82F6" strokeWidth="2"/>
-                            <line x1="110" y1="37" x2="130" y2="37" stroke="#3B82F6" strokeWidth="2"/>
-                            <line x1="40" y1="32" x2="40" y2="42" stroke="#3B82F6" strokeWidth="2"/>
-                            <line x1="130" y1="32" x2="130" y2="42" stroke="#3B82F6" strokeWidth="2"/>
+                            {/* Box */}
+                            <rect x="20" y="10" width="40" height="20" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1"/>
+                            
+                            {/* Median line */}
+                            <line x1="35" y1="10" x2="35" y2="30" stroke="#1d4ed8" strokeWidth="2"/>
                             
                             {/* Outliers */}
-                            <circle cx="150" cy="20" r="4" fill="#EF4444" stroke="#DC2626" strokeWidth="1"/>
-                            <circle cx="160" cy="15" r="4" fill="#EF4444" stroke="#DC2626" strokeWidth="1"/>
-                            
-                            {/* Grid lines */}
-                            <line x1="0" y1="25" x2="180" y2="25" stroke="#E5E7EB" strokeWidth="0.5" strokeDasharray="2,2"/>
-                            <line x1="0" y1="37" x2="180" y2="37" stroke="#E5E7EB" strokeWidth="0.5" strokeDasharray="2,2"/>
+                            <circle cx="90" cy="20" r="2" fill="#ef4444"/>
+                            <circle cx="100" cy="20" r="2" fill="#ef4444"/>
+                          </g>
+                          
+                          {/* Labels */}
+                          <text x="40" y="50" textAnchor="middle" className="text-xs fill-gray-600">40%</text>
+                          <text x="80" y="50" textAnchor="middle" className="text-xs fill-gray-600">60%</text>
+                          <text x="120" y="50" textAnchor="middle" className="text-xs fill-gray-600">80%</text>
                         </g>
                       </svg>
-                        
-                        {/* Enhanced Legend */}
-                        <div className="flex justify-center space-x-6 mt-3 text-xs">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 bg-blue-300 rounded border border-blue-400"></div>
-                            <span className="text-gray-700 font-medium">Q1-Q3 Range</span>
             </div>
-                          <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 bg-blue-800 rounded"></div>
-                            <span className="text-gray-700 font-medium">Median</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 bg-red-500 rounded-full border border-red-600"></div>
-                            <span className="text-gray-700 font-medium">Outliers</span>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="mt-2 flex items-center justify-center space-x-4 text-xs text-gray-500">
+                      <div className="flex items-center"><div className="w-2 h-2 bg-blue-100 border border-blue-500 mr-1"></div>Q1-Q3</div>
+                      <div className="flex items-center"><div className="w-2 h-2 bg-blue-600 mr-1"></div>Median</div>
+                      <div className="flex items-center"><div className="w-2 h-2 bg-red-500 rounded-full mr-1"></div>Outliers</div>
         </div>
       </div>
 
                   {/* Coaching Leaderboards */}
-                  <div className="pb-6 border-b border-gray-200">
-                    <div className="text-center mb-4">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <Users className="w-4 h-4 text-green-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Coaching Leaderboards</h5>
-                      </div>
-                      <div className="border-b border-green-200 mt-1"></div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="pb-6 border-b border-gray-200">
+                    <h5 className="text-sm font-medium text-gray-700 mb-2">Coaching Leaderboards</h5>
+                    <div className="space-y-3">
                       {/* Monologue Frequency Leaderboard */}
-                      <div className="bg-gray-50 rounded-xl p-4 border border-orange-100">
-                        <h6 className="text-xs font-medium text-gray-700 mb-3 text-center flex items-center justify-center space-x-1">
-                          <MessageSquare className="w-3 h-3 text-orange-600" />
-                          <span>Monologue Frequency</span>
-                        </h6>
-                        <div className="space-y-2">
-                          {agents.sort((a, b) => a.monologues - b.monologues).map((agent, index) => (
-                            <div 
-                              key={agent.id} 
-                              className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
-                              onClick={() => {
-                                setSelectedAgent(agent);
-                                setShowAgentDetails(true);
-                              }}
-                            >
-                              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold ${
-                                index === 0 ? 'bg-green-500' : 
-                                index === 1 ? 'bg-blue-500' : 
-                                index === 2 ? 'bg-yellow-500' : 'bg-gray-400'
+                      <div>
+                        <h6 className="text-xs font-medium text-gray-600 mb-1">Monologue Frequency</h6>
+                        <div className="space-y-1">
+                          {agents.sort((a, b) => a.monologues - b.monologues).slice(0, 3).map((agent, index) => (
+                            <div key={agent.id} className="flex items-center justify-between text-xs">
+                              <div className="flex items-center space-x-2">
+                                <div className={`w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold ${
+                                  index === 0 ? 'bg-green-500' : index === 1 ? 'bg-blue-500' : 'bg-yellow-500'
                                 }`}>
                                   {index + 1}
             </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-gray-900">{agent.name}</div>
-                                <div className="text-xs text-gray-600">{agent.calls} calls</div>
+                                <span className="text-gray-600">{agent.name}</span>
           </div>
-                              <div className="text-right">
-                                <div className="text-sm font-bold text-gray-900">{agent.monologues}</div>
-                                <div className="text-xs text-gray-500">per call</div>
-                              </div>
-                              <div className="w-12">
-                                <div className="w-full bg-gray-200 rounded-full h-1.5">
-                                  <div className={`h-1.5 rounded-full ${
-                                    agent.monologues <= 2 ? 'bg-green-500' :
-                                    agent.monologues <= 3 ? 'bg-yellow-500' :
-                                    'bg-red-500'
-                                  }`} style={{ width: `${Math.min(agent.monologues * 20, 100)}%` }}></div>
-                                </div>
-                              </div>
+                              <span className={`px-1 py-0.5 text-xs rounded ${
+                                agent.monologues <= 2 ? 'bg-green-100 text-green-700' :
+                                agent.monologues <= 3 ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-red-100 text-red-700'
+                              }`}>
+                                {agent.monologues}/call
+                              </span>
             </div>
                           ))}
             </div>
           </div>
           
                       {/* Interruption Rate Leaderboard */}
-                      <div className="bg-gray-50 rounded-xl p-4 border border-purple-100">
-                        <h6 className="text-xs font-medium text-gray-700 mb-3 text-center flex items-center justify-center space-x-1">
-                          <AlertTriangle className="w-3 h-3 text-purple-600" />
-                          <span>Interruption Rate</span>
-                        </h6>
-                        <div className="space-y-2">
-                          {agents.sort((a, b) => a.interruptions - b.interruptions).map((agent, index) => (
-                            <div 
-                              key={agent.id} 
-                              className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
-                              onClick={() => {
-                                setSelectedAgent(agent);
-                                setShowAgentDetails(true);
-                              }}
-                            >
-                              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold ${
-                                index === 0 ? 'bg-green-500' : 
-                                index === 1 ? 'bg-blue-500' : 
-                                index === 2 ? 'bg-yellow-500' : 'bg-gray-400'
+            <div>
+                        <h6 className="text-xs font-medium text-gray-600 mb-1">Interruption Rate</h6>
+                        <div className="space-y-1">
+                          {agents.sort((a, b) => a.interruptions - b.interruptions).slice(0, 3).map((agent, index) => (
+                            <div key={agent.id} className="flex items-center justify-between text-xs">
+                              <div className="flex items-center space-x-2">
+                                <div className={`w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold ${
+                                  index === 0 ? 'bg-green-500' : index === 1 ? 'bg-blue-500' : 'bg-yellow-500'
                                 }`}>
                                   {index + 1}
             </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-gray-900">{agent.name}</div>
-                                <div className="text-xs text-gray-600">{agent.calls} calls</div>
+                                <span className="text-gray-600">{agent.name}</span>
           </div>
-                              <div className="text-right">
-                                <div className="text-sm font-bold text-gray-900">{agent.interruptions}</div>
-                                <div className="text-xs text-gray-500">per call</div>
-                              </div>
-                              <div className="w-12">
-                                <div className="w-full bg-gray-200 rounded-full h-1.5">
-                                  <div className={`h-1.5 rounded-full ${
-                                    agent.interruptions <= 1 ? 'bg-green-500' :
-                                    agent.interruptions <= 2 ? 'bg-yellow-500' :
-                                    'bg-red-500'
-                                  }`} style={{ width: `${Math.min(agent.interruptions * 25, 100)}%` }}></div>
-                                </div>
-                              </div>
+                              <span className={`px-1 py-0.5 text-xs rounded ${
+                                agent.interruptions <= 1 ? 'bg-green-100 text-green-700' :
+                                agent.interruptions <= 2 ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-red-100 text-red-700'
+                              }`}>
+                                {agent.interruptions}/call
+                              </span>
         </div>
               ))}
             </div>
@@ -792,25 +674,18 @@ export function TeamLeaderOverview() {
 
                   {/* Rep vs Team Average Radar Chart */}
               <div>
-                    <div className="text-center mb-4">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <Target className="w-4 h-4 text-purple-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Rep vs Team Average</h5>
-                      </div>
-                      <div className="border-b border-purple-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-purple-100">
-                      <div className="h-40 bg-white rounded-lg p-4 shadow-sm flex items-center justify-center">
-                        <svg width="140" height="140" viewBox="0 0 140 140">
-                          <g transform="translate(70, 70)">
+                    <h5 className="text-sm font-medium text-gray-700 mb-2">Rep vs Team Average</h5>
+                    <div className="h-32 bg-white rounded-lg p-2 flex items-center justify-center">
+                      <svg width="120" height="120" viewBox="0 0 120 120">
+                        <g transform="translate(60, 60)">
                           {/* Radar chart grid */}
                           {[1, 2, 3, 4, 5].map(ring => (
                             <polygon
                               key={ring}
-                                points="0,-50 43.3,-25 43.3,25 0,50 -43.3,25 -43.3,-25"
+                              points="0,-45 38.9,-22.5 38.9,22.5 0,45 -38.9,22.5 -38.9,-22.5"
                               fill="none"
-                                stroke="#E5E7EB"
-                                strokeWidth="1.5"
+                              stroke="#e5e7eb"
+                              strokeWidth="0.5"
                               transform={`scale(${ring * 0.2})`}
                             />
                           ))}
@@ -821,49 +696,36 @@ export function TeamLeaderOverview() {
                               key={i}
                               x1="0"
                               y1="0"
-                                x2={50 * Math.cos((i * Math.PI) / 3 - Math.PI / 2)}
-                                y2={50 * Math.sin((i * Math.PI) / 3 - Math.PI / 2)}
-                                stroke="#E5E7EB"
-                                strokeWidth="1.5"
+                              x2={45 * Math.cos((i * Math.PI) / 3 - Math.PI / 2)}
+                              y2={45 * Math.sin((i * Math.PI) / 3 - Math.PI / 2)}
+                              stroke="#e5e7eb"
+                              strokeWidth="0.5"
                             />
                           ))}
                           
                           {/* Team average (blue) */}
                           <polygon
-                              points="0,-40 34.6,-20 34.6,20 0,40 -34.6,20 -34.6,-20"
-                              fill="rgba(59, 130, 246, 0.4)"
-                              stroke="#3B82F6"
-                              strokeWidth="2.5"
+                            points="0,-36 31.2,-18 31.2,18 0,36 -31.2,18 -31.2,-18"
+                            fill="rgba(59, 130, 246, 0.2)"
+                            stroke="#3b82f6"
+                            strokeWidth="1"
                           />
                           
                           {/* Individual agent (red) */}
                           <polygon
-                              points="0,-45 39.0,-22.5 39.0,22.5 0,45 -39.0,22.5 -39.0,-22.5"
-                              fill="rgba(239, 68, 68, 0.4)"
-                              stroke="#EF4444"
-                              strokeWidth="2.5"
-                            />
-                            
-                            {/* Center dot */}
-                            <circle cx="0" cy="0" r="3" fill="#374151"/>
+                            points="0,-40.5 35.1,-20.25 35.1,20.25 0,40.5 -35.1,20.25 -35.1,-20.25"
+                            fill="rgba(239, 68, 68, 0.2)"
+                            stroke="#ef4444"
+                            strokeWidth="1"
+                          />
                         </g>
                       </svg>
-                        
-                        {/* Enhanced Legend */}
-                        <div className="ml-6 flex flex-col space-y-3 text-xs">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-4 h-4 bg-blue-500 rounded border border-blue-600"></div>
-                            <span className="text-gray-700 font-medium">Team Average</span>
               </div>
-                          <div className="flex items-center space-x-3">
-                            <div className="w-4 h-4 bg-red-500 rounded border border-red-600"></div>
-                            <span className="text-gray-700 font-medium">Priya Sharma</span>
-                          </div>
+                    <div className="mt-2 flex items-center justify-center space-x-4 text-xs text-gray-500">
+                      <div className="flex items-center"><div className="w-2 h-2 bg-blue-500 opacity-50 mr-1"></div>Team Avg</div>
+                      <div className="flex items-center"><div className="w-2 h-2 bg-red-500 opacity-50 mr-1"></div>Priya Sharma</div>
               </div>
             </div>
-                    </div>
-            </div>
-
           </div>
         </div>
 
@@ -871,137 +733,27 @@ export function TeamLeaderOverview() {
               <div className="bg-white border border-gray-200 rounded-lg p-6">
                 <h4 className="text-lg font-semibold mb-4 pb-3 border-b border-gray-200 flex items-center bg-green-50 px-4 py-3 rounded-lg">
                   <Target className="w-5 h-5 mr-2 text-green-600" />
-                  Content Metrics
+                  Content Analysis
                 </h4>
-                <div className="space-y-6">
-                  {/* FR-DV-4.4: Keyword & Competitor Heatmap */}
-                  <div className="pb-4 border-b border-gray-200">
-                    <div className="text-center mb-3">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <BarChart3 className="w-4 h-4 text-green-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Keyword & Competitor Heatmap</h5>
-                      </div>
-                      <div className="border-b border-green-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-green-100">
-                      <div className="grid grid-cols-2 gap-4 mb-4">
-                        {/* Competitor Mentions */}
-                        <div>
-                          <h6 className="text-xs font-medium text-gray-600 mb-2 text-center">Competitor Mentions</h6>
-                          <div className="space-y-2">
-                            {[
-                              { name: 'Competitor A', mentions: 45, intensity: 'high' },
-                              { name: 'Competitor B', mentions: 32, intensity: 'medium' },
-                              { name: 'Competitor C', mentions: 18, intensity: 'low' }
-                            ].map((competitor, index) => (
-                              <div key={index} className="flex items-center justify-between p-2 bg-white rounded-lg">
-                                <span className="text-xs font-medium text-gray-700">{competitor.name}</span>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-xs text-gray-600">{competitor.mentions}</span>
-                                  <div className={`w-3 h-3 rounded-full ${
-                                    competitor.intensity === 'high' ? 'bg-red-500' :
-                                    competitor.intensity === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
-                                  }`}></div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        {/* Product Mentions */}
-                        <div>
-                          <h6 className="text-xs font-medium text-gray-600 mb-2 text-center">Product Mentions</h6>
-                          <div className="space-y-2">
-                            {[
-                              { name: 'Product X', mentions: 67, intensity: 'high' },
-                              { name: 'Product Y', mentions: 43, intensity: 'medium' },
-                              { name: 'Product Z', mentions: 25, intensity: 'low' }
-                            ].map((product, index) => (
-                              <div key={index} className="flex items-center justify-between p-2 bg-white rounded-lg">
-                                <span className="text-xs font-medium text-gray-700">{product.name}</span>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-xs text-gray-600">{product.mentions}</span>
-                                  <div className={`w-3 h-3 rounded-full ${
-                                    product.intensity === 'high' ? 'bg-blue-500' :
-                                    product.intensity === 'medium' ? 'bg-blue-400' : 'bg-blue-300'
-                                  }`}></div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* FR-DV-4.5: Intent Distribution Chart */}
-                  <div className="pb-4 border-b border-gray-200">
-                    <div className="text-center mb-3">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <Target className="w-4 h-4 text-blue-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Intent Distribution</h5>
-                      </div>
-                      <div className="border-b border-blue-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-blue-100">
-                      <div className="space-y-3">
-                        {[
-                          { intent: 'Objection Handling', percentage: 35, color: 'bg-red-500' },
-                          { intent: 'Product Inquiry', percentage: 28, color: 'bg-blue-500' },
-                          { intent: 'Technical Support', percentage: 22, color: 'bg-green-500' },
-                          { intent: 'Billing Questions', percentage: 15, color: 'bg-yellow-500' }
+                <div className="space-y-4">
+                  {[
+                    { label: 'Product Knowledge', value: 92, color: 'bg-green-500' },
+                    { label: 'Objection Handling', value: 87, color: 'bg-blue-500' },
+                    { label: 'Closing Techniques', value: 78, color: 'bg-yellow-500' },
+                    { label: 'Follow-up Quality', value: 95, color: 'bg-green-500' }
                   ].map((item, index) => (
                     <div key={index} className="flex items-center space-x-4">
-                            <div className="w-32 text-xs font-medium text-gray-700">{item.intent}</div>
-                            <div className="flex-1 bg-white rounded-full h-4 border">
+                      <div className="w-20 text-sm font-medium">{item.label}</div>
+                      <div className="flex-1 bg-gray-200 rounded-full h-6">
                         <div 
-                                className={`${item.color} h-4 rounded-full flex items-center justify-end pr-2`}
-                                style={{ width: `${item.percentage}%` }}
+                          className={`${item.color} h-6 rounded-full flex items-center justify-end pr-2`}
+                          style={{ width: `${item.value}%` }}
                         >
-                                <span className="text-white text-xs font-medium">{item.percentage}%</span>
+                          <span className="text-white text-sm font-medium">{item.value}%</span>
               </div>
             </div>
                 </div>
                   ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* FR-DV-4.6: Trending Topics */}
-                  <div>
-                    <div className="text-center mb-3">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <TrendingUp className="w-4 h-4 text-purple-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Trending Topics</h5>
-                      </div>
-                      <div className="border-b border-purple-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-purple-100">
-                      <div className="space-y-3">
-                        {[
-                          { topic: 'AI Integration', trend: 'up', mentions: 89, change: '+12%' },
-                          { topic: 'Security Concerns', trend: 'up', mentions: 67, change: '+8%' },
-                          { topic: 'Pricing Questions', trend: 'down', mentions: 45, change: '-3%' },
-                          { topic: 'Feature Requests', trend: 'up', mentions: 78, change: '+15%' }
-                        ].map((item, index) => (
-                          <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
-                            <div className="flex items-center space-x-3">
-                              <div className={`w-2 h-2 rounded-full ${
-                                item.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
-                              }`}></div>
-                              <span className="text-sm font-medium text-gray-700">{item.topic}</span>
-                            </div>
-                            <div className="flex items-center space-x-3">
-                              <span className="text-xs text-gray-600">{item.mentions} mentions</span>
-                              <span className={`text-xs font-medium ${
-                                item.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                              }`}>{item.change}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               
@@ -1011,26 +763,15 @@ export function TeamLeaderOverview() {
                   <Activity className="w-5 h-5 mr-2 text-purple-600" />
                   Sentiment Distribution
                 </h4>
-                <div className="space-y-6">
-                  {/* FR-DV-4.4: Sentiment Distribution */}
-                  <div className="pb-4 border-b border-gray-200">
-                    <div className="text-center mb-3">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <Activity className="w-4 h-4 text-purple-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Sentiment Distribution</h5>
-                      </div>
-                      <div className="border-b border-purple-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-purple-100">
-                      <div className="space-y-3">
-                        {[
-                          { label: 'Positive', value: 70, color: 'bg-green-500' },
-                          { label: 'Neutral', value: 20, color: 'bg-yellow-500' },
-                          { label: 'Negative', value: 10, color: 'bg-red-500' }
+                <div className="space-y-4">
+                  {[
+                    { label: 'Positive', value: 68, color: 'bg-green-500' },
+                    { label: 'Neutral', value: 24, color: 'bg-yellow-500' },
+                    { label: 'Negative', value: 8, color: 'bg-red-500' }
                   ].map((item, index) => (
                     <div key={index} className="flex items-center space-x-4">
-                            <div className="w-20 text-sm font-medium text-gray-700">{item.label}</div>
-                            <div className="flex-1 bg-white rounded-full h-6 border">
+                      <div className="w-20 text-sm font-medium">{item.label}</div>
+                      <div className="flex-1 bg-gray-200 rounded-full h-6">
                         <div 
                           className={`${item.color} h-6 rounded-full flex items-center justify-end pr-2`}
                           style={{ width: `${item.value}%` }}
@@ -1043,127 +784,22 @@ export function TeamLeaderOverview() {
             </div>
           </div>
             </div>
-
-                  {/* FR-DV-4.5: Escalation Rate Trend */}
-                  <div className="pb-4 border-b border-gray-200">
-                    <div className="text-center mb-3">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <TrendingUp className="w-4 h-4 text-red-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Escalation Rate Trend</h5>
-          </div>
-                      <div className="border-b border-red-200 mt-1"></div>
-        </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-red-100">
-                      <div className="h-24 bg-white rounded-lg p-3">
-                        <svg width="100%" height="100%" viewBox="0 0 200 60">
-                          <g transform="translate(20, 10)">
-                            {/* Y-axis */}
-                            <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="1.5"/>
-                            <text x="-5" y="5" fontSize="8" fill="#6B7280" textAnchor="end">25%</text>
-                            <text x="-5" y="25" fontSize="8" fill="#6B7280" textAnchor="end">15%</text>
-                            <text x="-5" y="45" fontSize="8" fill="#6B7280" textAnchor="end">5%</text>
-                            
-                            {/* X-axis */}
-                            <line x1="0" y1="40" x2="160" y2="40" stroke="#374151" strokeWidth="1.5"/>
-                            <text x="20" y="55" fontSize="8" fill="#6B7280" textAnchor="middle">Mon</text>
-                            <text x="60" y="55" fontSize="8" fill="#6B7280" textAnchor="middle">Tue</text>
-                            <text x="100" y="55" fontSize="8" fill="#6B7280" textAnchor="middle">Wed</text>
-                            <text x="140" y="55" fontSize="8" fill="#6B7280" textAnchor="middle">Thu</text>
-                            
-                            {/* Escalation trend line */}
-                            <polyline
-                              points="20,35 40,30 60,25 80,20 100,18 120,15 140,12"
-                              fill="none"
-                              stroke="#EF4444"
-                              strokeWidth="2"
-                            />
-                            
-                            {/* Data points */}
-                            <circle cx="20" cy="35" r="3" fill="#EF4444"/>
-                            <circle cx="40" cy="30" r="3" fill="#EF4444"/>
-                            <circle cx="60" cy="25" r="3" fill="#EF4444"/>
-                            <circle cx="80" cy="20" r="3" fill="#EF4444"/>
-                            <circle cx="100" cy="18" r="3" fill="#EF4444"/>
-                            <circle cx="120" cy="15" r="3" fill="#EF4444"/>
-                            <circle cx="140" cy="12" r="3" fill="#EF4444"/>
-                          </g>
-                        </svg>
-              </div>
-                      <div className="mt-2 text-center">
-                        <span className="text-xs text-gray-600">Escalation rate decreasing: 18% → 12%</span>
-            </div>
-                    </div>
-                  </div>
-
-                  {/* FR-DV-4.6: Agent Empathy Leaderboard */}
-                  <div>
-                    <div className="text-center mb-3">
-                      <div className="flex items-center justify-center space-x-2 mb-2">
-                        <Users className="w-4 h-4 text-green-600" />
-                        <h5 className="text-sm font-medium text-gray-700 inline-block">Agent Empathy Leaderboard</h5>
-                      </div>
-                      <div className="border-b border-green-200 mt-1"></div>
-                    </div>
-                    <div className="bg-gray-50 rounded-xl p-4 border border-green-100">
-                      <div className="space-y-2">
-                        {agents.sort((a, b) => b.score - a.score).map((agent, index) => (
-                          <div 
-                            key={agent.id} 
-                            className="flex items-center space-x-3 p-2 bg-white rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                            onClick={() => {
-                              setSelectedAgent(agent);
-                              setShowAgentDetails(true);
-                            }}
-                          >
-                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold ${
-                              index === 0 ? 'bg-green-500' : 
-                              index === 1 ? 'bg-blue-500' : 
-                              index === 2 ? 'bg-yellow-500' : 'bg-gray-400'
-                            }`}>
-                              {index + 1}
-                  </div>
-                  <div className="flex-1">
-                              <div className="text-xs font-medium text-gray-900">{agent.name}</div>
-                              <div className="text-xs text-gray-600">{agent.calls} calls</div>
-                  </div>
-                            <div className="text-right">
-                              <div className="text-sm font-bold text-gray-900">{agent.score}</div>
-                              <div className="text-xs text-gray-500">empathy score</div>
-                            </div>
-                            <div className="w-12">
-                              <div className="w-full bg-gray-200 rounded-full h-1.5">
-                                <div className={`h-1.5 rounded-full ${
-                                  agent.score >= 90 ? 'bg-green-500' :
-                                  agent.score >= 80 ? 'bg-blue-500' :
-                                  agent.score >= 70 ? 'bg-yellow-500' :
-                                  'bg-red-500'
-                                }`} style={{ width: `${agent.score}%` }}></div>
-                              </div>
-                            </div>
-                </div>
-              ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-          </div>
-            </div>
           )}
-            </div>
           </div>
+        </div>
 
         {/* Third Row: Performance Leaderboards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* FR-DV-4.4: Talk-to-Listen Ratio Leaderboard */}
           <div className={`${expandedWidget === 'talkListenLeaderboard' ? 'lg:col-span-2' : ''}`}>
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 border-t-4 border-t-orange-500 p-6 h-full ${expandedWidget === 'talkListenLeaderboard' ? 'min-h-[600px]' : ''}`}>
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full ${expandedWidget === 'talkListenLeaderboard' ? 'min-h-[600px]' : ''}`}>
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900">Talk-to-Listen Ratio Leaderboard</h3>
                   <p className="text-sm text-gray-600 mt-1">Best performing agents by conversation balance</p>
                 </div>
-              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleExpandWidget('talkListenLeaderboard')}
                     className="p-1 hover:bg-gray-100 rounded transition-colors"
@@ -1206,35 +842,35 @@ export function TeamLeaderOverview() {
                             <Settings className="w-4 h-4" />
                             <span>Leaderboard Settings</span>
                           </button>
-              </div>
-            </div>
+                        </div>
+                      </div>
                     )}
                   </div>
-            </div>
-          </div>
-
-            <div className="space-y-3">
+                </div>
+              </div>
+              
+              <div className="space-y-3">
                 {agents.sort((a, b) => b.talkRatio - a.talkRatio).map((agent, index) => (
-                <div 
-                  key={agent.id} 
-                  className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
-                  onClick={() => {
-                    setSelectedAgent(agent);
-                    setShowAgentDetails(true);
-                  }}
-                >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                    index === 0 ? 'bg-yellow-500' :
-                    index === 1 ? 'bg-gray-400' :
-                    index === 2 ? 'bg-orange-500' : 'bg-blue-500'
-                  }`}>
-                    {index + 1}
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">{agent.name}</div>
-                    <div className="text-xs text-gray-600">{agent.calls} calls • {agent.satisfaction}★ rating</div>
-                  </div>
-                  <div className="text-right">
+                  <div 
+                    key={agent.id} 
+                    className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+                    onClick={() => {
+                      setSelectedAgent(agent);
+                      setShowAgentDetails(true);
+                    }}
+                  >
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
+                      index === 0 ? 'bg-yellow-500' :
+                      index === 1 ? 'bg-gray-400' :
+                      index === 2 ? 'bg-orange-500' : 'bg-blue-500'
+                    }`}>
+                      {index + 1}
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-gray-900">{agent.name}</div>
+                      <div className="text-xs text-gray-600">{agent.calls} calls • {agent.satisfaction}★ rating</div>
+                    </div>
+                    <div className="text-right">
                       <div className="text-lg font-bold text-gray-900">{agent.talkRatio}%</div>
                       <div className="text-xs text-gray-500">Talk Ratio</div>
                     </div>
@@ -1245,22 +881,22 @@ export function TeamLeaderOverview() {
                           style={{ width: `${agent.talkRatio}%` }}
                         ></div>
                       </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
           {/* FR-DV-4.4: Interruption Count Leaderboard */}
           <div className={`${expandedWidget === 'interruptionLeaderboard' ? 'lg:col-span-2' : ''}`}>
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 border-t-4 border-t-red-500 p-6 h-full ${expandedWidget === 'interruptionLeaderboard' ? 'min-h-[600px]' : ''}`}>
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full ${expandedWidget === 'interruptionLeaderboard' ? 'min-h-[600px]' : ''}`}>
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900">Lowest Interruption Count</h3>
                   <p className="text-sm text-gray-600 mt-1">Agents with best listening skills</p>
                 </div>
-            <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleExpandWidget('interruptionLeaderboard')}
                     className="p-1 hover:bg-gray-100 rounded transition-colors"
@@ -1303,8 +939,8 @@ export function TeamLeaderOverview() {
                             <Settings className="w-4 h-4" />
                             <span>Leaderboard Settings</span>
                           </button>
-            </div>
-          </div>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -1326,7 +962,7 @@ export function TeamLeaderOverview() {
                       index === 2 ? 'bg-purple-500' : 'bg-gray-500'
                     }`}>
                       {index + 1}
-                </div>
+                    </div>
                     <div className="flex-1">
                       <div className="text-sm font-medium text-gray-900">{agent.name}</div>
                       <div className="text-xs text-gray-600">{agent.calls} calls • {agent.satisfaction}★ rating</div>
@@ -1346,11 +982,11 @@ export function TeamLeaderOverview() {
                         ></div>
                       </div>
                     </div>
+                  </div>
+                ))}
               </div>
-            ))}
-              </div>
+            </div>
           </div>
-        </div>
         </div>
 
       </div>
