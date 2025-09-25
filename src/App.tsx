@@ -112,11 +112,8 @@ function AppContent() {
             <div className="flex items-center space-x-4">
               <div>
                 <h1 className="text-2xl font-bold text-white">
-                  {selectedUser.role === 'team_leader' ? 'Team Dashboard' : 'Admin Dashboard'}
+                  Conversation Intelligence Platform
                 </h1>
-                <p className="text-purple-200">
-                  {selectedUser.role === 'team_leader' ? 'Management Dashboard' : 'System Overview'}
-                </p>
               </div>
             </div>
             <UserSelector

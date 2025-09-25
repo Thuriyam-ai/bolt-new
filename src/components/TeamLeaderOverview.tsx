@@ -68,8 +68,8 @@ export function TeamLeaderOverview() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
           <div>
-              <h1 className="text-2xl font-bold text-gray-900">Team Performance Overview</h1>
-              <p className="text-sm text-gray-600 mt-1">Key metrics and performance indicators</p>
+              <h1 className="text-2xl font-bold text-gray-900">Team Analytics Dashboard</h1>
+              <p className="text-sm text-gray-600 mt-1">Comprehensive conversation quality and performance metrics</p>
           </div>
           </div>
         </div>
@@ -1374,78 +1374,144 @@ export function TeamLeaderOverview() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
-                  <select className="w-full p-2 border border-gray-300 rounded-lg">
+                  <select className="w-full p-2 border border-gray-300 rounded-lg mb-3">
                     <option>Last 7 days</option>
                     <option>Last 30 days</option>
                     <option>Last 90 days</option>
                     <option>Custom Range</option>
                   </select>
+                  
+                  {/* Custom Date Range */}
+                  <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h4 className="text-sm font-medium text-gray-700">Custom Date Range</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">From Date</label>
+                        <input 
+                          type="date" 
+                          className="w-full p-2 border border-gray-300 rounded-lg text-sm"
+                          defaultValue="2024-01-01"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">To Date</label>
+                        <input 
+                          type="date" 
+                          className="w-full p-2 border border-gray-300 rounded-lg text-sm"
+                          defaultValue="2024-01-31"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <button className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Apply
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                        Reset
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Team</label>
-                  <select className="w-full p-2 border border-gray-300 rounded-lg">
-                    <option>All Teams</option>
-                    <option>Sales Team</option>
-                    <option>Support Team</option>
-                    <option>Marketing Team</option>
-                  </select>
+                  <div className="flex flex-wrap gap-2">
+                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
+                      All Teams
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Sales Team
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Support Team
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Marketing Team
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Agent</label>
-                  <select className="w-full p-2 border border-gray-300 rounded-lg">
-                    <option>All Agents</option>
-                    {agents.map(agent => (
-                      <option key={agent.id} value={agent.id}>{agent.name}</option>
+                  <div className="flex flex-wrap gap-2">
+                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
+                      All Agents
+                    </button>
+                    {agents.slice(0, 4).map(agent => (
+                      <button key={agent.id} className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                        {agent.name}
+                      </button>
                     ))}
-                  </select>
+                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200">
+                      +{agents.length - 4} more
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Performance Score</label>
-                  <div className="space-y-2">
-                    <input type="range" min="0" max="100" className="w-full" />
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>0</span>
-                      <span>100</span>
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
+                      All Scores
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Excellent (90+)
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Good (70-89)
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Average (50-69)
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Needs Improvement (&lt;50)
+                    </button>
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Call Volume</label>
-                  <div className="space-y-2">
-                    <input type="range" min="0" max="100" className="w-full" />
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>Low</span>
-                      <span>High</span>
+                  <div className="flex flex-wrap gap-2">
+                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
+                      All Volumes
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      High (50+)
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Medium (20-49)
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                      Low (&lt;20)
+                    </button>
                     </div>
                   </div>
+                
+                {/* Save Views Section - Compact */}
+                <div className="pt-3 border-t border-gray-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-sm font-medium text-gray-700">Save Views</label>
+                    <button className="text-xs text-blue-600 hover:text-blue-800">Manage</button>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Satisfaction Rating</label>
-                  <div className="space-y-2">
-                    <input type="range" min="1" max="5" step="0.1" className="w-full" />
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>1.0</span>
-                      <span>5.0</span>
+                  <div className="flex space-x-2">
+                    <input 
+                      type="text" 
+                      placeholder="View name..."
+                      className="flex-1 p-2 border border-gray-300 rounded text-sm"
+                    />
+                    <button className="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-sm">
+                      Save
+                    </button>
                     </div>
+                  <div className="mt-2 flex space-x-2">
+                    <button className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                      Last Week
+                    </button>
+                    <button className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                      Q4 Perf
+                    </button>
+                    <button className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                      Top Agents
+                    </button>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Call Quality</label>
-                  <div className="space-y-2">
-                    <label className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <span className="text-sm">Excellent</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <span className="text-sm">Good</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <span className="text-sm">Needs Improvement</span>
-                    </label>
-                  </div>
-                </div>
+                
                 <div className="flex space-x-3 pt-4">
                   <button className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                     Apply Filters
@@ -1552,4 +1618,5 @@ export function TeamLeaderOverview() {
     </div>
   );
 }
+
 
