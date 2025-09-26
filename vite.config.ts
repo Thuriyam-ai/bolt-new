@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-const repoName = "bolt-new"; // update this!
+const repoName = "bolt-new";
 
 export default defineConfig({
   plugins: [react()],
