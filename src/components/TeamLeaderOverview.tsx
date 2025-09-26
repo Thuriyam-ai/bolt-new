@@ -18,7 +18,9 @@ import {
   Maximize2,
   Minimize2,
   Settings,
-  TrendingUp
+  TrendingUp,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 
 // 1. Define the Agent type
@@ -49,11 +51,23 @@ export function TeamLeaderOverview() {
   const [expandedWidget, setExpandedWidget] = useState<string | null>(null);
   const [widgetMenu, setWidgetMenu] = useState<string | null>(null);
   const [showAnalyticsCards, setShowAnalyticsCards] = useState(false);
+  const [collapsedSections, setCollapsedSections] = useState<{[key: string]: boolean}>({
+    performanceScore: true,
+    callVolume: true
+  });
 
   const handleExpandWidget = (widgetId: string) => {
     setExpandedWidget(expandedWidget === widgetId ? null : widgetId);
     setWidgetMenu(null);
   };
+
+  const toggleSection = (sectionId: string) => {
+    setCollapsedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }));
+  };
+
 
   const handleWidgetAction = (widgetId: string, action: string) => {
     console.log(`Widget ${widgetId} action: ${action}`);
@@ -1362,7 +1376,7 @@ export function TeamLeaderOverview() {
           <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setShowFilters(false)}></div>
           <div className="absolute right-0 top-0 h-full w-96 bg-white shadow-xl">
             <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
                 <h3 className="text-lg font-semibold">Advanced Filters</h3>
                 <button 
                   onClick={() => setShowFilters(false)}
@@ -1374,33 +1388,59 @@ export function TeamLeaderOverview() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
-                  <select className="w-full p-2 border border-gray-300 rounded-lg mb-3">
-                    <option>Last 7 days</option>
-                    <option>Last 30 days</option>
-                    <option>Last 90 days</option>
-                    <option>Custom Range</option>
-                  </select>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 border border-indigo-300">
+                      All Time
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 border border-blue-300">
+                      Last 7 days
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 border border-blue-300">
+                      Last 30 days
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 border border-blue-300">
+                      Last 90 days
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-green-100 text-green-700 rounded-full hover:bg-green-200 border border-green-300">
+                      This Month
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-green-100 text-green-700 rounded-full hover:bg-green-200 border border-green-300">
+                      Last Month
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 border border-purple-300">
+                      This Quarter
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 border border-purple-300">
+                      Last Quarter
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 border border-orange-300">
+                      This Year
+                    </button>
+                    <button className="px-3 py-1 text-xs bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 border border-orange-300">
+                      Last Year
+                    </button>
+                </div>
                   
                   {/* Custom Date Range */}
                   <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
                     <h4 className="text-sm font-medium text-gray-700">Custom Date Range</h4>
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
+                <div>
                         <label className="block text-xs text-gray-600 mb-1">From Date</label>
                         <input 
                           type="date" 
                           className="w-full p-2 border border-gray-300 rounded-lg text-sm"
                           defaultValue="2024-01-01"
                         />
-                      </div>
-                      <div>
+                </div>
+                <div>
                         <label className="block text-xs text-gray-600 mb-1">To Date</label>
                         <input 
                           type="date" 
                           className="w-full p-2 border border-gray-300 rounded-lg text-sm"
                           defaultValue="2024-01-31"
                         />
-                      </div>
+                </div>
                     </div>
                     <div className="flex space-x-2">
                       <button className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600">
@@ -1415,16 +1455,16 @@ export function TeamLeaderOverview() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Team</label>
                   <div className="flex flex-wrap gap-2">
-                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
+                    <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 border border-indigo-300">
                       All Teams
                     </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                    <button className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 border border-blue-300">
                       Sales Team
                     </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                    <button className="px-3 py-1 text-xs bg-green-100 text-green-700 rounded-full hover:bg-green-200 border border-green-300">
                       Support Team
                     </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
+                    <button className="px-3 py-1 text-xs bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 border border-purple-300">
                       Marketing Team
                     </button>
                   </div>
@@ -1432,63 +1472,95 @@ export function TeamLeaderOverview() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Agent</label>
                   <div className="flex flex-wrap gap-2">
-                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
+                    <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 border border-indigo-300">
                       All Agents
                     </button>
-                    {agents.slice(0, 4).map(agent => (
-                      <button key={agent.id} className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                        {agent.name}
-                      </button>
-                    ))}
+                    {agents.slice(0, 4).map((agent, index) => {
+                      const colors = [
+                        'bg-blue-100 text-blue-700 border-blue-300 hover:bg-blue-200',
+                        'bg-green-100 text-green-700 border-green-300 hover:bg-green-200',
+                        'bg-purple-100 text-purple-700 border-purple-300 hover:bg-purple-200',
+                        'bg-orange-100 text-orange-700 border-orange-300 hover:bg-orange-200'
+                      ];
+                      return (
+                        <button key={agent.id} className={`px-3 py-1 text-xs rounded-full border ${colors[index]}`}>
+                          {agent.name}
+                        </button>
+                      );
+                    })}
                     <button className="px-3 py-1 text-xs bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200">
                       +{agents.length - 4} more
                     </button>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Performance Score</label>
-                  <div className="flex flex-wrap gap-2">
-                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
-                      All Scores
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      Excellent (90+)
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      Good (70-89)
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      Average (50-69)
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      Needs Improvement (&lt;50)
-                    </button>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Call Volume</label>
-                  <div className="flex flex-wrap gap-2">
-                    <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 border border-gray-300">
-                      All Volumes
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      High (50+)
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      Medium (20-49)
-                    </button>
-                    <button className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">
-                      Low (&lt;20)
-                    </button>
                     </div>
                   </div>
+                <div>
+                  <button 
+                    onClick={() => toggleSection('performanceScore')}
+                    className="flex items-center justify-between w-full text-xs font-medium text-gray-700 mb-2 hover:text-gray-900"
+                  >
+                    <span>Performance Score</span>
+                    {collapsedSections.performanceScore ? (
+                      <ChevronRight className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
+                  </button>
+                  {!collapsedSections.performanceScore && (
+                    <div className="flex flex-wrap gap-2">
+                      <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 border border-indigo-300">
+                        All Scores
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-green-100 text-green-700 rounded-full hover:bg-green-200 border border-green-300">
+                        Excellent (90+)
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 border border-blue-300">
+                        Good (70-89)
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full hover:bg-yellow-200 border border-yellow-300">
+                        Average (50-69)
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-full hover:bg-red-200 border border-red-300">
+                        Needs Improvement (&lt;50)
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <button 
+                    onClick={() => toggleSection('callVolume')}
+                    className="flex items-center justify-between w-full text-xs font-medium text-gray-700 mb-2 hover:text-gray-900"
+                  >
+                    <span>Call Volume</span>
+                    {collapsedSections.callVolume ? (
+                      <ChevronRight className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
+                  </button>
+                  {!collapsedSections.callVolume && (
+                    <div className="flex flex-wrap gap-2">
+                      <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 border border-indigo-300">
+                        All Volumes
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-full hover:bg-red-200 border border-red-300">
+                        High (50+)
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full hover:bg-yellow-200 border border-yellow-300">
+                        Medium (20-49)
+                      </button>
+                      <button className="px-3 py-1 text-xs bg-green-100 text-green-700 rounded-full hover:bg-green-200 border border-green-300">
+                        Low (&lt;20)
+                      </button>
+                  </div>
+                  )}
+                </div>
                 
                 {/* Save Views Section - Compact */}
                 <div className="pt-3 border-t border-gray-200">
                   <div className="flex items-center justify-between mb-2">
                     <label className="text-sm font-medium text-gray-700">Save Views</label>
                     <button className="text-xs text-blue-600 hover:text-blue-800">Manage</button>
-                </div>
+                  </div>
                   <div className="flex space-x-2">
                     <input 
                       type="text" 
@@ -1498,7 +1570,7 @@ export function TeamLeaderOverview() {
                     <button className="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-sm">
                       Save
                     </button>
-                    </div>
+                  </div>
                   <div className="mt-2 flex space-x-2">
                     <button className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
                       Last Week
@@ -1513,13 +1585,16 @@ export function TeamLeaderOverview() {
                 </div>
                 
                 <div className="flex space-x-3 pt-4">
-                  <button className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  <button className="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
                     Apply Filters
                   </button>
-                  <button className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors">
+                  <button className="flex-1 bg-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-400 transition-colors text-sm">
                     Reset
                   </button>
                 </div>
+                
+                {/* Divider below Advanced Filters */}
+                <div className="border-b border-gray-200 mt-6"></div>
               </div>
             </div>
           </div>
@@ -1603,10 +1678,10 @@ export function TeamLeaderOverview() {
 
                 {/* Action Buttons */}
                 <div className="flex space-x-3 pt-4">
-                  <button className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  <button className="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
                     View Full Profile
                   </button>
-                  <button className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                  <button className="flex-1 bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm">
                     Schedule Meeting
                   </button>
                 </div>
