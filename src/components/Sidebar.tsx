@@ -84,16 +84,16 @@ const teamLeaderSidebarItems = [
     description: 'Team Overview & Metrics'
   },
   { 
-    id: 'call-quality-analytics',
-    icon: BarChart3, 
-    label: 'Call Quality Analytics',
-    description: 'Call Performance Analysis'
-  },
-  { 
     id: 'conversations',
     icon: MessageSquare, 
     label: 'Conversations',
     description: 'Team Conversations'
+  },
+  { 
+    id: 'call-quality-analytics',
+    icon: BarChart3, 
+    label: 'Call Quality Analytics',
+    description: 'Call Performance Analysis'
   },
   { 
     id: 'goal-mgmt',
