@@ -11,6 +11,7 @@ import { Dashboard } from "./components/Dashboard";
 import { UserSelector } from "./components/UserSelector";
 import { TeamLeaderOverview } from "./components/TeamLeaderOverview";
 import { CallQualityAnalytics } from "./components/CallQualityAnalytics";
+import { Dashboards } from "./components/Dashboards";
 import { Conversations } from "./components/Conversations";
 import { GoalManagement } from "./components/GoalManagement";
 import { GoalDetails } from "./components/GoalDetails";
@@ -29,7 +30,8 @@ function AppContent() {
     const path = location.pathname;
     if (path === "/" || path === "/dashboard") return "dashboard";
     if (path === "/overview") return "overview";
-    if (path === "/call-quality-analytics") return "call-quality-analytics";
+    if (path === "/dashboards") return "dashboards";
+    if (path === "/call-quality-analytics" || path.startsWith("/call-quality-analytics/")) return "call-quality-analytics";
     if (path === "/conversations") return "conversations";
     if (path === "/goal-mgmt") return "goal-mgmt";
     if (path.startsWith("/goal-details/")) return "goal-details";
@@ -66,6 +68,7 @@ function AppContent() {
   useEffect(() => {
     if (
       currentView === "overview" ||
+      currentView === "dashboards" ||
       currentView === "call-quality-analytics" ||
       currentView === "conversations" ||
       currentView === "goal-mgmt" ||
@@ -89,6 +92,8 @@ function AppContent() {
     switch (currentView) {
       case "overview":
         return <TeamLeaderOverview />;
+      case "dashboards":
+        return <Dashboards />;
       case "call-quality-analytics":
         return <CallQualityAnalytics />;
       case "conversations":

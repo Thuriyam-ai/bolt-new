@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { 
   BarChart3, 
   TrendingUp, 
@@ -12,315 +13,38 @@ import {
   User,
   Target
 } from 'lucide-react';
-
-// Define goal data structure
-interface Goal {
-  id: string;
-  name: string;
-  description: string;
-  scorecard: {
-    parameter: string;
-    maxScore: number;
-    failureType: 'Fatal' | 'Non-Fatal';
-    rules: string;
-  }[];
-  analytics: {
-    overallScore: number;
-    totalCalls: number;
-    fatalErrors: number;
-    avgDuration: string;
-    parameters: {
-      parameter: string;
-      maxScore: number;
-      currentScore: number;
-      adherence: number;
-      trend: 'up' | 'down';
-    }[];
-  };
-}
+import { cqaConfigs } from '../data/cqaConfigs';
+import { DashboardType } from '../types';
 
 export function CallQualityAnalytics() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // Get dashboard type from URL or default to 'support'
+  const dashboardTypeFromUrl = searchParams.get('type') as DashboardType;
+  const [selectedDashboardType, setSelectedDashboardType] = useState<DashboardType>(
+    dashboardTypeFromUrl && ['support', 'sales', 'customer-success'].includes(dashboardTypeFromUrl) 
+      ? dashboardTypeFromUrl 
+      : 'support'
+  );
+  
   const [selectedAgent, setSelectedAgent] = useState('All Agents');
   const [selectedDateRange, setSelectedDateRange] = useState('Last 7 Days');
-  const [selectedGoal, setSelectedGoal] = useState<string>('lead-qualification');
-  const [goals, setGoals] = useState<Goal[]>([]);
+  const [selectedGoal, setSelectedGoal] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [scoreRange, setScoreRange] = useState('All Scores');
   const [failureType, setFailureType] = useState('All Types');
 
-  // Mock goals data - in real app, this would come from API
+  // Get current dashboard configuration
+  const currentConfig = cqaConfigs[selectedDashboardType];
+  const goals = currentConfig.goals;
+
+  // Set default selected goal when dashboard type changes
   useEffect(() => {
-    const mockGoals: Goal[] = [
-      {
-        id: 'lead-qualification',
-        name: 'Lead Qualification Assistant',
-        description: 'Professional lead qualification with comprehensive scoring',
-        scorecard: [
-          {
-            parameter: 'Call Opening Adherence',
-            maxScore: 10,
-            failureType: 'Non-Fatal',
-            rules: 'Greet professionally, introduce with name, mention company, state purpose'
-          },
-          {
-            parameter: 'Effective Questioning',
-            maxScore: 25,
-            failureType: 'Fatal',
-            rules: 'Ask all mandatory questions clearly and appropriately'
-          },
-          {
-            parameter: 'Budget & Timeline Assessment',
-            maxScore: 20,
-            failureType: 'Fatal',
-            rules: 'Confirm budget range and implementation timeline'
-          },
-          {
-            parameter: 'Decision Process Identification',
-            maxScore: 15,
-            failureType: 'Non-Fatal',
-            rules: 'Identify key stakeholders and decision-making process'
-          },
-          {
-            parameter: 'Needs Assessment',
-            maxScore: 15,
-            failureType: 'Fatal',
-            rules: 'Understand current challenges and pain points'
-          },
-          {
-            parameter: 'Professional Communication',
-            maxScore: 10,
-            failureType: 'Non-Fatal',
-            rules: 'Maintain professional tone, avoid interruptions'
-          },
-          {
-            parameter: 'Call Closing',
-            maxScore: 5,
-            failureType: 'Non-Fatal',
-            rules: 'Thank prospect, summarize next steps, close professionally'
-          }
-        ],
-        analytics: {
-          overallScore: 87.2,
-          totalCalls: 212,
-          fatalErrors: 3,
-          avgDuration: '8:45',
-          parameters: [
-            {
-              parameter: 'Call Opening Adherence',
-              maxScore: 10,
-              currentScore: 8.4,
-              adherence: 84,
-              trend: 'down'
-            },
-            {
-              parameter: 'Effective Questioning',
-              maxScore: 25,
-              currentScore: 20.3,
-              adherence: 81,
-              trend: 'down'
-            },
-            {
-              parameter: 'Budget & Timeline Assessment',
-              maxScore: 20,
-              currentScore: 17.8,
-              adherence: 89,
-              trend: 'up'
-            },
-            {
-              parameter: 'Decision Process Identification',
-              maxScore: 15,
-              currentScore: 13.2,
-              adherence: 88,
-              trend: 'up'
-            },
-            {
-              parameter: 'Needs Assessment',
-              maxScore: 15,
-              currentScore: 14.1,
-              adherence: 94,
-              trend: 'up'
-            },
-            {
-              parameter: 'Professional Communication',
-              maxScore: 10,
-              currentScore: 9.2,
-              adherence: 92,
-              trend: 'up'
-            },
-            {
-              parameter: 'Call Closing',
-              maxScore: 5,
-              currentScore: 4.7,
-              adherence: 94,
-              trend: 'up'
-            }
-          ]
-        }
-      },
-      {
-        id: 'support-triage',
-        name: 'Support Ticket Triage',
-        description: 'Efficient ticket categorization and routing',
-        scorecard: [
-          {
-            parameter: 'Issue Classification',
-            maxScore: 30,
-            failureType: 'Fatal',
-            rules: 'Correctly categorize ticket type and priority level'
-          },
-          {
-            parameter: 'Customer Information Gathering',
-            maxScore: 20,
-            failureType: 'Non-Fatal',
-            rules: 'Collect relevant customer details and system information'
-          },
-          {
-            parameter: 'Initial Resolution Attempt',
-            maxScore: 25,
-            failureType: 'Non-Fatal',
-            rules: 'Attempt basic troubleshooting before escalation'
-          },
-          {
-            parameter: 'Escalation Decision',
-            maxScore: 15,
-            failureType: 'Fatal',
-            rules: 'Make appropriate escalation decisions based on complexity'
-          },
-          {
-            parameter: 'Documentation Quality',
-            maxScore: 10,
-            failureType: 'Non-Fatal',
-            rules: 'Provide clear, detailed ticket documentation'
-          }
-        ],
-        analytics: {
-          overallScore: 91.5,
-          totalCalls: 156,
-          fatalErrors: 1,
-          avgDuration: '6:23',
-          parameters: [
-            {
-              parameter: 'Issue Classification',
-              maxScore: 30,
-              currentScore: 27.9,
-              adherence: 93,
-              trend: 'up'
-            },
-            {
-              parameter: 'Customer Information Gathering',
-              maxScore: 20,
-              currentScore: 18.4,
-              adherence: 92,
-              trend: 'up'
-            },
-            {
-              parameter: 'Initial Resolution Attempt',
-              maxScore: 25,
-              currentScore: 22.8,
-              adherence: 91,
-              trend: 'down'
-            },
-            {
-              parameter: 'Escalation Decision',
-              maxScore: 15,
-              currentScore: 14.2,
-              adherence: 95,
-              trend: 'up'
-            },
-            {
-              parameter: 'Documentation Quality',
-              maxScore: 10,
-              currentScore: 9.5,
-              adherence: 95,
-              trend: 'up'
-            }
-          ]
-        }
-      },
-      {
-        id: 'feedback-collection',
-        name: 'Customer Feedback Collection',
-        description: 'Systematic feedback gathering and analysis',
-        scorecard: [
-          {
-            parameter: 'Survey Introduction',
-            maxScore: 15,
-            failureType: 'Non-Fatal',
-            rules: 'Clearly explain feedback purpose and process'
-          },
-          {
-            parameter: 'Question Delivery',
-            maxScore: 35,
-            failureType: 'Fatal',
-            rules: 'Ask all survey questions clearly and in correct order'
-          },
-          {
-            parameter: 'Response Capture',
-            maxScore: 25,
-            failureType: 'Fatal',
-            rules: 'Accurately record all customer responses'
-          },
-          {
-            parameter: 'Follow-up Questions',
-            maxScore: 15,
-            failureType: 'Non-Fatal',
-            rules: 'Ask appropriate clarifying questions when needed'
-          },
-          {
-            parameter: 'Survey Completion',
-            maxScore: 10,
-            failureType: 'Non-Fatal',
-            rules: 'Thank customer and provide next steps'
-          }
-        ],
-        analytics: {
-          overallScore: 89.3,
-          totalCalls: 98,
-          fatalErrors: 2,
-          avgDuration: '12:15',
-          parameters: [
-            {
-              parameter: 'Survey Introduction',
-              maxScore: 15,
-              currentScore: 13.5,
-              adherence: 90,
-              trend: 'up'
-            },
-            {
-              parameter: 'Question Delivery',
-              maxScore: 35,
-              currentScore: 31.2,
-              adherence: 89,
-              trend: 'down'
-            },
-            {
-              parameter: 'Response Capture',
-              maxScore: 25,
-              currentScore: 22.8,
-              adherence: 91,
-              trend: 'up'
-            },
-            {
-              parameter: 'Follow-up Questions',
-              maxScore: 15,
-              currentScore: 13.4,
-              adherence: 89,
-              trend: 'up'
-            },
-            {
-              parameter: 'Survey Completion',
-              maxScore: 10,
-              currentScore: 9.2,
-              adherence: 92,
-              trend: 'up'
-            }
-          ]
-        }
-      }
-    ];
-    setGoals(mockGoals);
-  }, []);
+    if (goals.length > 0 && (!selectedGoal || !goals.find(g => g.id === selectedGoal))) {
+      setSelectedGoal(goals[0].id);
+    }
+  }, [selectedDashboardType, goals, selectedGoal]);
 
   const currentGoal = goals.find(goal => goal.id === selectedGoal);
 
@@ -354,8 +78,23 @@ export function CallQualityAnalytics() {
           <div className="flex items-center space-x-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Call Quality Analytics</h1>
-              <p className="text-sm text-gray-600 mt-1">Comprehensive call quality metrics and performance analysis</p>
+              <p className="text-sm text-gray-600 mt-1">
+                {selectedDashboardType === 'support' && 'Customer support call quality and resolution metrics'}
+                {selectedDashboardType === 'sales' && 'Sales performance analytics and conversion insights'}
+                {selectedDashboardType === 'customer-success' && 'Customer health monitoring and expansion opportunities'}
+              </p>
             </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-500">Dashboard Type:</span>
+            <span className={`px-3 py-1 text-sm font-medium rounded-full ${
+              selectedDashboardType === 'support' ? 'bg-blue-100 text-blue-700' :
+              selectedDashboardType === 'sales' ? 'bg-green-100 text-green-700' :
+              'bg-purple-100 text-purple-700'
+            }`}>
+              {selectedDashboardType === 'support' ? 'Support' :
+               selectedDashboardType === 'sales' ? 'Sales' : 'Customer Success'}
+            </span>
           </div>
         </div>
       </div>
@@ -491,26 +230,44 @@ export function CallQualityAnalytics() {
       )}
 
       {/* Key Metrics Cards */}
-      {currentGoal && (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* Overall Dashboard Metrics */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-blue-500 bg-opacity-10 flex items-center justify-center">
-              <BarChart3 size={20} className="text-blue-500" />
+            <div className={`w-12 h-12 rounded-lg bg-opacity-10 flex items-center justify-center ${
+              selectedDashboardType === 'support' ? 'bg-blue-500' :
+              selectedDashboardType === 'sales' ? 'bg-green-500' : 'bg-purple-500'
+            }`}>
+              <BarChart3 size={20} className={
+                selectedDashboardType === 'support' ? 'text-blue-500' :
+                selectedDashboardType === 'sales' ? 'text-green-500' : 'text-purple-500'
+              } />
             </div>
           </div>
           <h3 className="text-gray-600 text-sm font-medium mb-1">Overall Score</h3>
-            <p className="text-4xl font-bold text-blue-600">{currentGoal.analytics.overallScore}%</p>
+          <p className={`text-4xl font-bold ${
+            selectedDashboardType === 'support' ? 'text-blue-600' :
+            selectedDashboardType === 'sales' ? 'text-green-600' : 'text-purple-600'
+          }`}>{currentConfig.analytics.overallScore}%</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-green-500 bg-opacity-10 flex items-center justify-center">
-              <Phone size={20} className="text-green-500" />
+            <div className={`w-12 h-12 rounded-lg bg-opacity-10 flex items-center justify-center ${
+              selectedDashboardType === 'support' ? 'bg-green-500' :
+              selectedDashboardType === 'sales' ? 'bg-blue-500' : 'bg-green-500'
+            }`}>
+              <Phone size={20} className={
+                selectedDashboardType === 'support' ? 'text-green-500' :
+                selectedDashboardType === 'sales' ? 'text-blue-500' : 'text-green-500'
+              } />
             </div>
           </div>
           <h3 className="text-gray-600 text-sm font-medium mb-1">Total Calls</h3>
-            <p className="text-4xl font-bold text-green-600">{currentGoal.analytics.totalCalls}</p>
+          <p className={`text-4xl font-bold ${
+            selectedDashboardType === 'support' ? 'text-green-600' :
+            selectedDashboardType === 'sales' ? 'text-blue-600' : 'text-green-600'
+          }`}>{currentConfig.analytics.totalCalls}</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
@@ -520,20 +277,72 @@ export function CallQualityAnalytics() {
             </div>
           </div>
           <h3 className="text-gray-600 text-sm font-medium mb-1">Fatal Errors</h3>
-            <p className="text-4xl font-bold text-red-600">{currentGoal.analytics.fatalErrors}</p>
+          <p className="text-4xl font-bold text-red-600">{currentConfig.analytics.fatalErrors}</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-blue-500 bg-opacity-10 flex items-center justify-center">
-              <Clock size={20} className="text-blue-500" />
+            <div className={`w-12 h-12 rounded-lg bg-opacity-10 flex items-center justify-center ${
+              selectedDashboardType === 'support' ? 'bg-blue-500' :
+              selectedDashboardType === 'sales' ? 'bg-green-500' : 'bg-purple-500'
+            }`}>
+              <Clock size={20} className={
+                selectedDashboardType === 'support' ? 'text-blue-500' :
+                selectedDashboardType === 'sales' ? 'text-green-500' : 'text-purple-500'
+              } />
             </div>
           </div>
           <h3 className="text-gray-600 text-sm font-medium mb-1">Avg Call Duration</h3>
-            <p className="text-4xl font-bold text-blue-600">{currentGoal.analytics.avgDuration}</p>
+          <p className={`text-4xl font-bold ${
+            selectedDashboardType === 'support' ? 'text-blue-600' :
+            selectedDashboardType === 'sales' ? 'text-green-600' : 'text-purple-600'
+          }`}>{currentConfig.analytics.avgDuration}</p>
+        </div>
+      </div>
+
+      {/* Specialized Metrics for Dashboard Type */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <Target className={`w-6 h-6 ${
+              selectedDashboardType === 'support' ? 'text-blue-600' :
+              selectedDashboardType === 'sales' ? 'text-green-600' : 'text-purple-600'
+            }`} />
+            <h2 className="text-xl font-semibold text-gray-900">
+              {selectedDashboardType === 'support' ? 'Support Performance Metrics' :
+               selectedDashboardType === 'sales' ? 'Sales Performance Metrics' : 
+               'Customer Success Metrics'}
+            </h2>
           </div>
         </div>
-      )}
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {currentConfig.specializedMetrics.map((metric, index) => (
+            <div key={index} className="text-center">
+              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-opacity-10 mb-3 ${
+                selectedDashboardType === 'support' ? 'bg-blue-500' :
+                selectedDashboardType === 'sales' ? 'bg-green-500' : 'bg-purple-500'
+              }`}>
+                <BarChart3 size={20} className={
+                  selectedDashboardType === 'support' ? 'text-blue-500' :
+                  selectedDashboardType === 'sales' ? 'text-green-500' : 'text-purple-500'
+                } />
+              </div>
+              <h3 className="text-gray-600 text-sm font-medium mb-1">{metric.title}</h3>
+              <p className={`text-2xl font-bold ${
+                selectedDashboardType === 'support' ? 'text-blue-600' :
+                selectedDashboardType === 'sales' ? 'text-green-600' : 'text-purple-600'
+              }`}>{metric.value}</p>
+              <p className={`text-xs mt-1 ${
+                metric.changeType === 'positive' ? 'text-green-600' : 
+                metric.changeType === 'negative' ? 'text-red-600' : 'text-gray-600'
+              }`}>
+                {metric.change > 0 ? '+' : ''}{metric.change}%
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Call Quality Parameters Analysis */}
       {currentGoal && (

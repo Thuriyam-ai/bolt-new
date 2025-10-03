@@ -84,6 +84,12 @@ const teamLeaderSidebarItems = [
     description: 'Team Overview & Metrics'
   },
   { 
+    id: 'dashboards',
+    icon: BarChart3, 
+    label: 'Dashboards',
+    description: 'Multi-Function Analytics'
+  },
+  { 
     id: 'conversations',
     icon: MessageSquare, 
     label: 'Conversations',

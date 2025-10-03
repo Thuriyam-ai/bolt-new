@@ -25,7 +25,10 @@ export interface ChartData {
   }[];
 }
 
+export type DashboardType = 'support' | 'sales' | 'customer-success';
+
 export interface DashboardConfig {
+  type: DashboardType;
   metrics: MetricCard[];
   charts: {
     id: string;
@@ -33,4 +36,42 @@ export interface DashboardConfig {
     type: 'line' | 'bar' | 'pie' | 'area';
     data: ChartData;
   }[];
+}
+
+export interface CQADashboardConfig {
+  type: DashboardType;
+  goals: Goal[];
+  analytics: {
+    overallScore: number;
+    totalCalls: number;
+    fatalErrors: number;
+    avgDuration: string;
+  };
+  specializedMetrics: MetricCard[];
+}
+
+export interface Goal {
+  id: string;
+  name: string;
+  description: string;
+  dashboardType: DashboardType;
+  scorecard: {
+    parameter: string;
+    maxScore: number;
+    failureType: 'Fatal' | 'Non-Fatal';
+    rules: string;
+  }[];
+  analytics: {
+    overallScore: number;
+    totalCalls: number;
+    fatalErrors: number;
+    avgDuration: string;
+    parameters: {
+      parameter: string;
+      maxScore: number;
+      currentScore: number;
+      adherence: number;
+      trend: 'up' | 'down';
+    }[];
+  };
 }
