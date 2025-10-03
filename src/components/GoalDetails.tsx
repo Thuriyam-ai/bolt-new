@@ -381,7 +381,7 @@ Remember to maintain a consultative approach and focus on understanding their ne
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Plus size={16} />
-                  <span>ADD FIELD</span>
+                  <span>Add Field</span>
                 </button>
               </div>
 
@@ -557,7 +557,7 @@ Remember to maintain a consultative approach and focus on understanding their ne
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Plus size={16} />
-                  <span>ADD DISPOSITION</span>
+                  <span>Add Disposition</span>
                 </button>
               </div>
 
@@ -631,7 +631,7 @@ Remember to maintain a consultative approach and focus on understanding their ne
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Plus size={16} />
-                  <span>ADD PARAMETER</span>
+                  <span>Add Parameter</span>
                 </button>
               </div>
 
