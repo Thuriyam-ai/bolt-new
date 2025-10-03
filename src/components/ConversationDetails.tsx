@@ -74,10 +74,31 @@ export function ConversationDetails({ conversation, onBack }: ConversationDetail
   const [likedTranscriptEntries, setLikedTranscriptEntries] = useState<number[]>([]);
   const [showAuditorScoring, setShowAuditorScoring] = useState(false);
   const [auditorScores, setAuditorScores] = useState({
+    // Technical Support criteria
+    technicalDiagnosis: 0,
+    solutionProvision: 0,
+    troubleshootingSteps: 0,
+    technicalCommunication: 0,
+    documentation: 0,
+    // Sales criteria
+    needsAssessment: 0,
+    objectionHandling: 0,
+    valueProposition: 0,
+    closingTechniques: 0,
+    relationshipBuilding: 0,
+    // Customer Success criteria
+    proactiveSupport: 0,
+    retentionStrategies: 0,
+    upsellingOpportunities: 0,
+    feedbackCollection: 0,
+    accountManagement: 0,
+    // General criteria
     communication: 0,
     productKnowledge: 0,
-    customerService: 0,
+    customerSatisfaction: 0,
     compliance: 0,
+    // Legacy criteria (for backward compatibility)
+    customerService: 0,
     technicalAccuracy: 0,
     salesEffectiveness: 0,
     problemResolution: 0,
@@ -92,47 +113,50 @@ export function ConversationDetails({ conversation, onBack }: ConversationDetail
     switch (category.toLowerCase()) {
       case 'technical support':
         return {
-          title: 'Technical Support Scoring',
-          description: 'Evaluate technical assistance quality',
+          title: 'Technical Support Quality Assessment',
+          description: 'Evaluate technical troubleshooting and support effectiveness',
           criteria: [
-            { key: 'communication', label: 'Communication', max: 25, description: 'Clarity in explaining technical solutions' },
-            { key: 'technicalAccuracy', label: 'Technical Accuracy', max: 30, description: 'Correctness of technical information provided' },
-            { key: 'problemResolution', label: 'Problem Resolution', max: 25, description: 'Effectiveness in solving customer issues' },
-            { key: 'customerService', label: 'Customer Service', max: 20, description: 'Professionalism and empathy' }
+            { key: 'technicalDiagnosis', label: 'Technical Diagnosis', max: 30, description: 'Ability to accurately identify and diagnose technical issues' },
+            { key: 'solutionProvision', label: 'Solution Provision', max: 25, description: 'Quality and effectiveness of technical solutions provided' },
+            { key: 'troubleshootingSteps', label: 'Troubleshooting Process', max: 20, description: 'Logical and systematic approach to problem-solving' },
+            { key: 'technicalCommunication', label: 'Technical Communication', max: 15, description: 'Ability to explain complex technical concepts clearly' },
+            { key: 'documentation', label: 'Documentation & Follow-up', max: 10, description: 'Proper case documentation and follow-up procedures' }
           ]
         };
       case 'sales':
       case 'tech sales':
         return {
-          title: 'Sales Performance Scoring',
-          description: 'Evaluate sales effectiveness and techniques',
+          title: 'Sales Performance Assessment',
+          description: 'Evaluate sales techniques and deal-closing effectiveness',
           criteria: [
-            { key: 'communication', label: 'Communication', max: 25, description: 'Persuasive and clear communication' },
-            { key: 'productKnowledge', label: 'Product Knowledge', max: 25, description: 'Understanding of products and features' },
-            { key: 'salesEffectiveness', label: 'Sales Effectiveness', max: 30, description: 'Ability to close deals and handle objections' },
-            { key: 'customerService', label: 'Customer Service', max: 20, description: 'Relationship building and trust' }
+            { key: 'needsAssessment', label: 'Needs Assessment', max: 25, description: 'Quality of discovering and understanding customer needs' },
+            { key: 'objectionHandling', label: 'Objection Handling', max: 25, description: 'Effectiveness in addressing customer concerns and objections' },
+            { key: 'valueProposition', label: 'Value Proposition', max: 20, description: 'Clear articulation of product benefits and value' },
+            { key: 'closingTechniques', label: 'Closing Techniques', max: 20, description: 'Ability to move conversation toward purchase decision' },
+            { key: 'relationshipBuilding', label: 'Relationship Building', max: 10, description: 'Establishing trust and rapport with potential customers' }
           ]
         };
       case 'customer success':
         return {
-          title: 'Customer Success Scoring',
-          description: 'Evaluate customer relationship management',
+          title: 'Customer Success Quality Assessment',
+          description: 'Evaluate customer relationship management and retention efforts',
           criteria: [
-            { key: 'communication', label: 'Communication', max: 25, description: 'Clear and helpful communication' },
-            { key: 'customerService', label: 'Customer Service', max: 30, description: 'Proactive support and satisfaction' },
-            { key: 'problemResolution', label: 'Problem Resolution', max: 25, description: 'Quick and effective issue resolution' },
-            { key: 'compliance', label: 'Compliance', max: 20, description: 'Following company policies and procedures' }
+            { key: 'proactiveSupport', label: 'Proactive Support', max: 30, description: 'Anticipating and addressing customer needs before issues arise' },
+            { key: 'retentionStrategies', label: 'Retention Strategies', max: 25, description: 'Implementation of strategies to maintain customer loyalty' },
+            { key: 'upsellingOpportunities', label: 'Growth Opportunities', max: 20, description: 'Identifying and presenting relevant upselling opportunities' },
+            { key: 'feedbackCollection', label: 'Feedback Collection', max: 15, description: 'Gathering and acting on customer feedback effectively' },
+            { key: 'accountManagement', label: 'Account Management', max: 10, description: 'Overall account health monitoring and management' }
           ]
         };
       default:
         return {
-          title: 'General Conversation Scoring',
-          description: 'Evaluate overall conversation quality',
+          title: 'General Conversation Assessment',
+          description: 'Evaluate overall conversation quality and customer service',
           criteria: [
-            { key: 'communication', label: 'Communication', max: 25, description: 'Clear and professional communication' },
-            { key: 'productKnowledge', label: 'Product Knowledge', max: 25, description: 'Knowledge of products and services' },
-            { key: 'customerService', label: 'Customer Service', max: 25, description: 'Helpfulness and professionalism' },
-            { key: 'compliance', label: 'Compliance', max: 25, description: 'Following guidelines and procedures' }
+            { key: 'communication', label: 'Communication Quality', max: 25, description: 'Clarity, professionalism, and effectiveness of communication' },
+            { key: 'productKnowledge', label: 'Product Knowledge', max: 25, description: 'Understanding and accuracy of product/service information' },
+            { key: 'customerSatisfaction', label: 'Customer Satisfaction', max: 25, description: 'Overall customer experience and satisfaction levels' },
+            { key: 'compliance', label: 'Compliance & Procedures', max: 25, description: 'Adherence to company policies and standard procedures' }
           ]
         };
     }
@@ -145,10 +169,31 @@ export function ConversationDetails({ conversation, onBack }: ConversationDetail
     setSelectedTemplate(newTemplate);
     // Reset all scores to 0 when template changes
     setAuditorScores({
+      // Technical Support criteria
+      technicalDiagnosis: 0,
+      solutionProvision: 0,
+      troubleshootingSteps: 0,
+      technicalCommunication: 0,
+      documentation: 0,
+      // Sales criteria
+      needsAssessment: 0,
+      objectionHandling: 0,
+      valueProposition: 0,
+      closingTechniques: 0,
+      relationshipBuilding: 0,
+      // Customer Success criteria
+      proactiveSupport: 0,
+      retentionStrategies: 0,
+      upsellingOpportunities: 0,
+      feedbackCollection: 0,
+      accountManagement: 0,
+      // General criteria
       communication: 0,
       productKnowledge: 0,
-      customerService: 0,
+      customerSatisfaction: 0,
       compliance: 0,
+      // Legacy criteria (for backward compatibility)
+      customerService: 0,
       technicalAccuracy: 0,
       salesEffectiveness: 0,
       problemResolution: 0,
@@ -920,8 +965,8 @@ export function ConversationDetails({ conversation, onBack }: ConversationDetail
             <div className="absolute right-0 top-0 h-full w-96 bg-white shadow-xl">
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">{scoringTemplate.title}</h2>
-                  <p className="text-sm text-gray-600">{scoringTemplate.description}</p>
+                  <h2 className="text-lg font-semibold text-gray-900">Auditor Scoring</h2>
+                  <p className="text-sm text-gray-600">Manually score this conversation</p>
                 </div>
                 <button
                   onClick={() => setShowAuditorScoring(false)}
@@ -935,151 +980,102 @@ export function ConversationDetails({ conversation, onBack }: ConversationDetail
                 {/* Conversation Info */}
                 <div className="bg-gray-50 rounded-lg p-4">
                   <h3 className="font-medium text-gray-900 mb-3">Conversation Details</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {/* Agent Card */}
-                    <div className="bg-white rounded-lg p-3 border border-gray-200">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <User className="w-4 h-4 text-blue-600" />
-                        <span className="text-xs font-medium text-gray-600">Agent</span>
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">{conversation.agent}</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Agent:</span>
+                      <span className="font-medium">{conversation.agent}</span>
                     </div>
-
-                    {/* Customer Card */}
-                    <div className="bg-white rounded-lg p-3 border border-gray-200">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <User className="w-4 h-4 text-green-600" />
-                        <span className="text-xs font-medium text-gray-600">Customer</span>
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">{conversation.customer}</div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Duration:</span>
+                      <span className="font-medium">{conversation.duration}</span>
                     </div>
-
-                    {/* Duration Card */}
-                    <div className="bg-white rounded-lg p-3 border border-gray-200">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <Timer className="w-4 h-4 text-orange-600" />
-                        <span className="text-xs font-medium text-gray-600">Duration</span>
-                      </div>
-                      <div className="text-sm font-semibold text-gray-900">{conversation.duration}</div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Category:</span>
+                      <span className="font-medium">{conversation.category}</span>
                     </div>
-
-                    {/* AI Score Card */}
-                    <div className="bg-white rounded-lg p-3 border border-gray-200">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <Star className="w-4 h-4 text-purple-600" />
-                        <span className="text-xs font-medium text-gray-600">AI Score</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <div className={`text-sm font-semibold ${
-                          conversation.score >= 90 ? 'text-green-600' :
-                          conversation.score >= 80 ? 'text-yellow-600' : 'text-red-600'
-                        }`}>
-                          {conversation.score}/100
-                        </div>
-                        <div className={`w-2 h-2 rounded-full ${
-                          conversation.score >= 90 ? 'bg-green-500' :
-                          conversation.score >= 80 ? 'bg-yellow-500' : 'bg-red-500'
-                        }`}></div>
-                      </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">AI Score:</span>
+                      <span className="font-medium">{conversation.score}/100</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Quality Template Selection */}
-                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg p-4">
-                  <h3 className="font-medium text-gray-900 mb-3 flex items-center space-x-2">
-                    <Settings className="w-4 h-4 text-purple-600" />
-                    <span>Quality Template</span>
-                  </h3>
-                  
+                <div className="bg-white rounded-lg border border-gray-200 p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Quality Template</h3>
                   <div className="space-y-3">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Select Template</label>
-                      <select
-                        value={selectedTemplate}
-                        onChange={(e) => handleTemplateChange(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      >
-                        <option value="technical support">Technical Support</option>
-                        <option value="sales">Sales/Tech Sales</option>
-                        <option value="customer success">Customer Success</option>
-                        <option value="general">General Conversation</option>
-                      </select>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg p-3">
-                      <div className="text-sm font-medium text-gray-900 mb-2">Template Details</div>
-                      <div className="space-y-2 text-xs text-gray-600">
-                        <div><span className="font-medium">Title:</span> {scoringTemplate.title}</div>
-                        <div><span className="font-medium">Description:</span> {scoringTemplate.description}</div>
-                        <div><span className="font-medium">Total Points:</span> {scoringTemplate.criteria.reduce((total, criterion) => total + criterion.max, 0)}</div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg p-3">
-                      <div className="text-sm font-medium text-gray-900 mb-2">Scoring Criteria</div>
-                      <div className="space-y-1">
-                        {scoringTemplate.criteria.map((criterion, index) => (
-                          <div key={index} className="flex justify-between items-center text-xs">
-                            <span className="text-gray-700">{criterion.label}</span>
-                            <span className="text-gray-500 font-medium">{criterion.max}pts</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <label className="block text-sm font-medium text-gray-700">Select Template</label>
+                    <select
+                      value={selectedTemplate}
+                      onChange={(e) => handleTemplateChange(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="technical support">Technical Support</option>
+                      <option value="sales/tech sales">Sales/Tech Sales</option>
+                      <option value="customer success">Customer Success</option>
+                      <option value="general">General</option>
+                    </select>
                   </div>
                 </div>
 
                 {/* Scoring Criteria */}
-                <div className="space-y-4">
-                  <h3 className="font-medium text-gray-900">Scoring Criteria</h3>
-                  
-                  {scoringTemplate.criteria.map((criterion, index) => (
-                    <div key={criterion.key}>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        {criterion.label} (0-{criterion.max})
-                      </label>
-                      <p className="text-xs text-gray-600 mb-2">{criterion.description}</p>
-                      <input
-                        type="range"
-                        min="0"
-                        max={criterion.max}
-                        value={auditorScores[criterion.key as keyof typeof auditorScores] || 0}
-                        onChange={(e) => setAuditorScores({
-                          ...auditorScores, 
-                          [criterion.key]: parseInt(e.target.value)
-                        })}
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-xs text-gray-500 mt-1">
-                        <span>Poor (0)</span>
-                        <span className="font-medium">{auditorScores[criterion.key as keyof typeof auditorScores] || 0}</span>
-                        <span>Excellent ({criterion.max})</span>
+                <div className="bg-white rounded-lg border border-gray-200 p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Scoring Criteria</h3>
+                  <div className="space-y-4">
+                    {scoringTemplate.criteria.map((criterion, index) => (
+                      <div key={criterion.key} className="border-b border-gray-100 pb-4 last:border-b-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-900">{criterion.label}</h4>
+                            <p className="text-xs text-gray-600">{criterion.description}</p>
+                          </div>
+                          <span className="text-sm font-semibold text-blue-600">
+                            {auditorScores[criterion.key as keyof typeof auditorScores] || 0}/{criterion.max}
+                          </span>
+                        </div>
+                        <input
+                          type="range"
+                          min="0"
+                          max={criterion.max}
+                          value={auditorScores[criterion.key as keyof typeof auditorScores] || 0}
+                          onChange={(e) => setAuditorScores({
+                            ...auditorScores,
+                            [criterion.key]: parseInt(e.target.value)
+                          })}
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        />
                       </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Overall Score Display */}
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-1">
-                      {scoringTemplate.criteria.reduce((total, criterion) => 
-                        total + (auditorScores[criterion.key as keyof typeof auditorScores] || 0), 0
-                      )}/{scoringTemplate.criteria.reduce((total, criterion) => total + criterion.max, 0)}
-                    </div>
-                    <div className="text-sm text-gray-600">Total Score</div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Notes */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Audit Notes</label>
+                {/* Overall Score */}
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Overall Score</h3>
+                  <div className="flex items-center justify-between">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {scoringTemplate.criteria.reduce((total, criterion) => {
+                        const score = auditorScores[criterion.key as keyof typeof auditorScores];
+                        return total + (typeof score === 'number' ? score : 0);
+                      }, 0)}/{scoringTemplate.criteria.reduce((total, criterion) => total + criterion.max, 0)}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {Math.round((scoringTemplate.criteria.reduce((total, criterion) => {
+                        const score = auditorScores[criterion.key as keyof typeof auditorScores];
+                        return total + (typeof score === 'number' ? score : 0);
+                      }, 0) / scoringTemplate.criteria.reduce((total, criterion) => total + criterion.max, 0)) * 100)}%
+                    </div>
+                  </div>
+                </div>
+
+                {/* Audit Notes */}
+                <div className="bg-white rounded-lg border border-gray-200 p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Audit Notes</h3>
                   <textarea
                     value={auditorScores.notes}
                     onChange={(e) => setAuditorScores({...auditorScores, notes: e.target.value})}
-                    placeholder="Add your observations and feedback..."
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                    placeholder="Add your observations and recommendations..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                     rows={4}
                   />
                 </div>
@@ -1096,9 +1092,10 @@ export function ConversationDetails({ conversation, onBack }: ConversationDetail
                   <button
                     onClick={() => {
                       // Calculate total human score
-                      const totalHumanScore = scoringTemplate.criteria.reduce((total, criterion) => 
-                        total + (auditorScores[criterion.key as keyof typeof auditorScores] || 0), 0
-                      );
+                      const totalHumanScore = scoringTemplate.criteria.reduce((total, criterion) => {
+                        const score = auditorScores[criterion.key as keyof typeof auditorScores];
+                        return total + (typeof score === 'number' ? score : 0);
+                      }, 0);
                       setSavedHumanScore(totalHumanScore);
                       // Here you would save the scores to your backend
                       console.log('Auditor Scores:', auditorScores);

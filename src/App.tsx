@@ -13,6 +13,7 @@ import { TeamLeaderOverview } from "./components/TeamLeaderOverview";
 import { CallQualityAnalytics } from "./components/CallQualityAnalytics";
 import { Conversations } from "./components/Conversations";
 import { GoalManagement } from "./components/GoalManagement";
+import { GoalDetails } from "./components/GoalDetails";
 import { CampaignManagement } from "./components/CampaignManagement";
 import { AlertManagement } from "./components/AlertManagement";
 import { users, dashboardConfigs } from "./data/mockData";
@@ -31,6 +32,7 @@ function AppContent() {
     if (path === "/call-quality-analytics") return "call-quality-analytics";
     if (path === "/conversations") return "conversations";
     if (path === "/goal-mgmt") return "goal-mgmt";
+    if (path.startsWith("/goal-details/")) return "goal-details";
     if (path === "/campaign-mgmt") return "campaign-mgmt";
     if (path === "/alert-mgmt") return "alert-mgmt";
     if (path === "/agent-configurations") return "agent-configurations";
@@ -67,6 +69,7 @@ function AppContent() {
       currentView === "call-quality-analytics" ||
       currentView === "conversations" ||
       currentView === "goal-mgmt" ||
+      currentView === "goal-details" ||
       currentView === "campaign-mgmt" ||
       currentView === "alert-mgmt"
     ) {
@@ -92,6 +95,8 @@ function AppContent() {
         return <Conversations />;
       case "goal-mgmt":
         return <GoalManagement />;
+      case "goal-details":
+        return <GoalDetails />;
       case "campaign-mgmt":
         return <CampaignManagement />;
       case "alert-mgmt":
